@@ -1,4 +1,4 @@
-name: Build Biometric Lock EXE
+name: Build myface EXE
 
 on:
   push:
@@ -47,7 +47,7 @@ jobs:
 
     - name: Build Standalone Executable with PyInstaller
       run: |
-        pyinstaller --onefile --noconsole --name BiometricLock `
+        pyinstaller --onefile --noconsole --name myface `
           --exclude-module scipy `
           --exclude-module matplotlib `
           --exclude-module pandas `
@@ -62,10 +62,10 @@ jobs:
           --upx-dir upx-4.2.2-win64 `
           --upx-exclude "vcruntime140.dll" `
           --upx-exclude "vcruntime140_1.dll" `
-          biometric_lock.py
+          myface.py
 
     - name: Upload EXE Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: BiometricLock-Windows
-        path: dist/BiometricLock.exe
+        name: myface-Windows
+        path: dist/myface.exe
