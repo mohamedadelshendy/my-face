@@ -90,7 +90,7 @@ class FaceRegistration:
 
 
 class FaceLockSystem:
-    def __init__(self, reference_image_path="my_face.jpg", tolerance=0.6, grace_period=3.0):
+    def __init__(self, reference_image_path="my_face.jpg", tolerance=0.45, grace_period=3.0):
         """
         Initializes the FaceLockSystem.
         """
@@ -246,5 +246,5 @@ if __name__ == "__main__":
             sys.exit(0)
 
     # 2. Main Phase: Start the locking system
-    system = FaceLockSystem(reference_image_path=target_image, tolerance=0.6, grace_period=3.0)
+    system = FaceLockSystem(reference_image_path=target_image, tolerance=0.45, grace_period=3.0)
     system.run()
