@@ -9,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    permissions:
+      contents: write
 
     steps:
     - name: Checkout Code
@@ -69,3 +71,12 @@ jobs:
       with:
         name: myface-Windows
         path: dist/myface.exe
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: dist/myface.exe
+        tag_name: v1.0.0
+        name: Version 1.0.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
