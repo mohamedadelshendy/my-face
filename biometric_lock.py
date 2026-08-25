@@ -139,7 +139,7 @@ class FaceLockSystem:
         try:
             print(f"Loading reference image from {self.reference_image_path}...")
             image = face_recognition.load_image_file(self.reference_image_path)
-            encodings = face_recognition.face_encodings(image)
+            encodings = face_recognition.face_encodings(image, model="small")
             if not encodings:
                 print("Error: No face found in reference image.")
                 sys.exit(1)
@@ -197,7 +197,7 @@ class FaceLockSystem:
                 rgb_small_frame = cv2.cvtColor(small_frame, cv2.COLOR_BGR2RGB)
                 
                 face_locations = face_recognition.face_locations(rgb_small_frame)
-                face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
+                face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations, model="small")
 
                 if not face_encodings:
                     if time.time() - self.last_seen_time > self.grace_period:

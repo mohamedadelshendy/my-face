@@ -28,9 +28,34 @@ jobs:
       run: |
         pip install -r requirements.txt
 
+    - name: Download and extract UPX
+      run: |
+        Invoke-WebRequest -Uri https://github.com/upx/upx/releases/download/v4.2.2/upx-4.2.2-win64.zip -OutFile upx.zip
+        Expand-Archive upx.zip -DestinationPath .
+        echo "$PWD/upx-4.2.2-win64" >> $env:GITHUB_PATH
+
+    - name: Get Face Recognition Models Path
+      id: fr_path
+      run: |
+        $FR_DIR = python -c "import face_recognition_models; import os; print(os.path.dirname(face_recognition_models.__file__))"
+        echo "FR_DIR=$FR_DIR" >> $env:GITHUB_ENV
+
     - name: Build Standalone Executable with PyInstaller
       run: |
-        pyinstaller --onefile --noconsole --name BiometricLock --collect-data face_recognition_models biometric_lock.py
+        pyinstaller --onefile --noconsole --name BiometricLock `
+          --exclude-module scipy `
+          --exclude-module matplotlib `
+          --exclude-module pandas `
+          --exclude-module PyQt5 `
+          --exclude-module notebook `
+          --exclude-module IPython `
+          --exclude-module PIL.ImageQt `
+          --exclude-module PIL.ImageDraw `
+          --add-data "${{ env.FR_DIR }}\mmod_human_face_detector.dat;face_recognition_models" `
+          --add-data "${{ env.FR_DIR }}\shape_predictor_5_face_landmarks.dat;face_recognition_models" `
+          --add-data "${{ env.FR_DIR }}\dlib_face_recognition_resnet_model_v1.dat;face_recognition_models" `
+          --upx-dir upx-4.2.2-win64 `
+          biometric_lock.py
 
     - name: Upload EXE Artifact
       uses: actions/upload-artifact@v4
