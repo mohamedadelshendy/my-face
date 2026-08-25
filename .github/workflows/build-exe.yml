@@ -51,9 +51,9 @@ jobs:
           --exclude-module IPython `
           --exclude-module PIL.ImageQt `
           --exclude-module PIL.ImageDraw `
-          --add-data "${{ env.FR_DIR }}\mmod_human_face_detector.dat;face_recognition_models" `
-          --add-data "${{ env.FR_DIR }}\shape_predictor_5_face_landmarks.dat;face_recognition_models" `
-          --add-data "${{ env.FR_DIR }}\dlib_face_recognition_resnet_model_v1.dat;face_recognition_models" `
+          --add-data "${{ env.FR_DIR }}\models\mmod_human_face_detector.dat;face_recognition_models\models" `
+          --add-data "${{ env.FR_DIR }}\models\shape_predictor_5_face_landmarks.dat;face_recognition_models\models" `
+          --add-data "${{ env.FR_DIR }}\models\dlib_face_recognition_resnet_model_v1.dat;face_recognition_models\models" `
           --upx-dir upx-4.2.2-win64 `
           biometric_lock.py
 
