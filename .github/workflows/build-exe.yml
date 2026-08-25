@@ -55,6 +55,8 @@ jobs:
           --add-data "${{ env.FR_DIR }}\models\shape_predictor_5_face_landmarks.dat;face_recognition_models\models" `
           --add-data "${{ env.FR_DIR }}\models\dlib_face_recognition_resnet_model_v1.dat;face_recognition_models\models" `
           --upx-dir upx-4.2.2-win64 `
+          --upx-exclude "vcruntime140.dll" `
+          --upx-exclude "vcruntime140_1.dll" `
           biometric_lock.py
 
     - name: Upload EXE Artifact
